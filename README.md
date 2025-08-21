@@ -1,8 +1,55 @@
-# Welcome to your Lovable project
+# Physical Asset Verification App
+
+A mobile-friendly React application for conducting physical asset verification with form-based data entry and spreadsheet import/export capabilities.
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/681d4283-efb3-49c1-b9fa-d2ade2935a14
+
+## Features
+
+- Mobile-optimized form interface
+- Asset data sheet management  
+- Photo upload functionality
+- Spreadsheet import/export (Excel/CSV)
+- Editable field titles
+- Interactive buttons and dropdowns
+- Download to device's default folder
+
+## Building Mobile App Bundles
+
+This app uses Capacitor to create native mobile applications:
+
+### Prerequisites
+- Node.js and npm installed
+- For iOS: Mac with Xcode
+- For Android: Android Studio
+
+### Steps to Create App Bundles
+
+1. **Export to GitHub** (button in Lovable top-right)
+2. **Clone and Setup**
+   ```bash
+   git clone [your-github-repo]
+   cd [project-folder]  
+   npm install
+   ```
+3. **Add Mobile Platforms**
+   ```bash
+   npx cap add ios     # For iOS
+   npx cap add android # For Android
+   npx cap update ios  # or android
+   ```
+4. **Build and Generate Bundles**
+   ```bash
+   npm run build
+   npx cap sync
+   npx cap run android  # Creates APK
+   npx cap run ios      # Opens Xcode for iOS
+   ```
+
+### Additional Resources
+- [Mobile Development Guide](https://lovable.dev/blogs/TODO)
 
 ## How can I edit this code?
 

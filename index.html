@@ -8,9 +8,214 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
-        /* ... (keep all existing Verification_App styles) ... */
-
-        /* Add Camera App Styles */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a1a1a;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --border-radius: 4px;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            --industrial-dark: #222;
+            --industrial-metal: #6d6d6d;
+            --industrial-accent: #f39c12;
+            --industrial-light: #f5f5f5;
+            --industrial-border: #444;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a1a;
+            color: #f5f5f5;
+            line-height: 1.6;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                              url('https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--industrial-dark), var(--industrial-metal));
+            color: var(--industrial-light);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid var(--industrial-accent);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--industrial-accent);
+        }
+        
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--industrial-light);
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+        }
+        
+        header p {
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .app-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        
+        @media (min-width: 992px) {
+            .app-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        .section {
+            background: rgba(34, 34, 34, 0.9);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--industrial-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--industrial-accent);
+        }
+        
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--industrial-border);
+        }
+        
+        .section-title h2 {
+            color: var(--industrial-light);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.5rem;
+        }
+        
+        .section-title i {
+            color: var(--industrial-accent);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--industrial-light);
+            cursor: pointer;
+            position: relative;
+            padding-left: 25px;
+            font-size: 1.1rem;
+        }
+        
+        label i {
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--industrial-accent);
+        }
+        
+        .editable-label {
+            border-bottom: 1px dashed var(--industrial-accent);
+            padding: 2px 4px;
+            min-width: 120px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .editable-label:hover {
+            background-color: rgba(243, 156, 18, 0.1);
+            border-bottom: 1px solid var(--industrial-accent);
+        }
+        
+        .editable-label-input {
+            background: transparent;
+            border: 1px solid var(--industrial-accent);
+            color: var(--industrial-light);
+            font-family: 'Roboto Condensed', sans-serif;
+            font-size: 1rem;
+            padding: 2px 4px;
+            width: auto;
+            min-width: 120px;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--industrial-border);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: #333;
+            color: var(--industrial-light);
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--industrial-accent);
+            box-shadow: 0 0 0 3px rgba(243, 156, 18, 0.3);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        /* Camera Styles - Integrated from Camera App */
         .camera-container {
             position: relative;
             border-radius: 8px;
@@ -141,68 +346,1255 @@
             color: #ff8a80;
             margin-bottom: 0.5rem;
         }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+        }
+        
+        .btn-primary {
+            background: var(--industrial-metal);
+            color: white;
+            border-color: var(--industrial-accent);
+        }
+        
+        .btn-primary:hover {
+            background: #555;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+            border-color: #27ae60;
+        }
+        
+        .btn-success:hover {
+            background: #2ecc71;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+            border-color: #e67e22;
+        }
+        
+        .btn-warning:hover {
+            background: #e67e22;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
 
-        /* ... (rest of existing Verification_App styles) ... */
+        .btn-danger {
+            background: var(--accent);
+            color: white;
+            border-color: #c0392b;
+        }
+        
+        .btn-danger:hover {
+            background: #e74c3c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+        
+        .btn-group .btn {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .spreadsheet-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            overflow-x: auto;
+            display: block;
+            border: 1px solid var(--industrial-border);
+        }
+        
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--industrial-border);
+        }
+        
+        .data-table th {
+            background-color: var(--industrial-dark);
+            color: var(--industrial-light);
+            position: sticky;
+            top: 0;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+        
+        .data-table tr:hover {
+            background-color: rgba(243, 156, 18, 0.1);
+        }
+        
+        .data-table tr.selected {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .field-management {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--industrial-border);
+        }
+        
+        .field-management h3 {
+            margin-bottom: 15px;
+            color: var(--industrial-light);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .new-field-form {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        
+        .new-field-input {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .asset-selector {
+            margin-bottom: 20px;
+        }
+        
+        .asset-selector select {
+            background-color: #333;
+            color: var(--industrial-light);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--industrial-border);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .tab {
+            padding: 12px 25px;
+            cursor: pointer;
+            background: var(--industrial-dark);
+            border: 1px solid transparent;
+            border-bottom: none;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            transition: var(--transition);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--industrial-light);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        
+        .tab.active {
+            background: rgba(34, 34, 34, 0.9);
+            border-color: var(--industrial-border);
+            font-weight: 600;
+            color: var(--industrial-accent);
+            border-bottom: 3px solid var(--industrial-accent);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: var(--industrial-metal);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--industrial-border);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            background: var(--success);
+            color: white;
+            box-shadow: var(--shadow);
+            transform: translateX(200%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            border-left: 5px solid var(--industrial-accent);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.error {
+            background: var(--accent);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .status-badge.verified {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: #27ae60;
+            border: 1px solid #27ae60;
+        }
+        
+        .status-badge.pending {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: #f39c12;
+            border: 1px solid #f39c12;
+        }
+        
+        .btn-action {
+            background: none;
+            border: none;
+            color: var(--industrial-accent);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 5px 8px;
+            transition: var(--transition);
+            border-radius: 4px;
+        }
+        
+        .btn-action:hover {
+            color: var(--industrial-light);
+            transform: scale(1.1);
+            background: rgba(243, 156, 18, 0.1);
+        }
+        
+        .btn-action.delete {
+            color: var(--accent);
+        }
+        
+        .asset-counter {
+            background-color: rgba(34, 34, 34, 0.9);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--industrial-border);
+            flex-wrap: wrap;
+        }
+        
+        .counter-item {
+            text-align: center;
+            flex: 1;
+            padding: 10px;
+            position: relative;
+            min-width: 100px;
+        }
+        
+        .counter-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: var(--industrial-border);
+        }
+        
+        .counter-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--industrial-accent);
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+        }
+        
+        .counter-label {
+            font-size: 0.9rem;
+            color: var(--industrial-metal);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .saved-assets {
+            background-color: rgba(51, 51, 51, 0.5);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--industrial-border);
+        }
+        
+        .saved-assets h3 {
+            margin-top: 0;
+            color: var(--industrial-light);
+            border-bottom: 1px solid var(--industrial-border);
+            padding-bottom: 10px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .saved-assets ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .saved-assets li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--industrial-border);
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .saved-assets li:last-child {
+            border-bottom: none;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: rgba(34, 34, 34, 0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 25px;
+            border: 1px solid var(--industrial-accent);
+            position: relative;
+        }
+        
+        .modal-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--industrial-accent);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--industrial-border);
+        }
+        
+        .modal-header h3 {
+            color: var(--industrial-light);
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--industrial-metal);
+        }
+        
+        .close-modal:hover {
+            color: var(--industrial-accent);
+        }
+        
+        .asset-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .detail-item {
+            margin-bottom: 15px;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: var(--industrial-accent);
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        .detail-value {
+            padding: 8px 12px;
+            background-color: rgba(51, 51, 51, 0.5);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--industrial-border);
+        }
+        
+        .photo-preview-large {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+            display: block;
+            border: 1px solid var(--industrial-accent);
+        }
+        
+        /* Industrial UI elements */
+        .panel-screw {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--industrial-metal);
+            border-radius: 50%;
+            border: 1px solid var(--industrial-dark);
+        }
+        
+        .panel-screw.top-left {
+            top: 5px;
+            left: 5px;
+        }
+        
+        .panel-screw.top-right {
+            top: 5px;
+            right: 5px;
+        }
+        
+        .panel-screw.bottom-left {
+            bottom: 5px;
+            left: 5px;
+        }
+        
+        .panel-screw.bottom-right {
+            bottom: 5px;
+            right: 5px;
+        }
+        
+        .industrial-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--industrial-accent), transparent);
+            margin: 15px 0;
+            border: none;
+        }
+        
+        /* Animation for industrial feel */
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Mobile-specific styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.2rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn-group .btn {
+                width: 100%;
+            }
+            
+            .new-field-form {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .spreadsheet-actions {
+                flex-direction: column;
+            }
+            
+            .app-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .counter-value {
+                font-size: 1.5rem;
+            }
+            
+            .counter-item {
+                min-width: 30%;
+                padding: 5px;
+            }
+            
+            .counter-item:not(:last-child)::after {
+                display: none;
+            }
+            
+            .asset-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-table th, 
+            .data-table td {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .data-table td:last-child {
+                display: flex;
+                gap: 5px;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            
+            .tabs::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .tab {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            input, select, textarea {
+                padding: 10px 12px;
+            }
+            
+            .camera-container {
+                min-height: 250px;
+            }
+            
+            .camera-controls {
+                gap: 0.5rem;
+            }
+            
+            .camera-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .counter-value {
+                font-size: 1.2rem;
+            }
+            
+            .counter-label {
+                font-size: 0.8rem;
+            }
+            
+            .tab {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
+            
+            .btn {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .data-table {
+                font-size: 0.8rem;
+            }
+            
+            .data-table th, 
+            .data-table td {
+                padding: 6px 8px;
+            }
+            
+            .status-badge {
+                font-size: 0.75rem;
+                padding: 2px 6px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- ... (keep all existing Verification_App HTML structure) ... -->
-        
-        <!-- Asset Verification Section -->
-        <div class="section tab-content active" id="verification">
+        <header>
             <div class="panel-screw top-left"></div>
             <div class="panel-screw top-right"></div>
-            <div class="section-title">
-                <h2><i class="fas fa-tasks"></i> Asset Verification Form</h2>
+            <div class="panel-screw bottom-left"></div>
+            <div class="panel-screw bottom-right"></div>
+            <h1><i class="fas fa-clipboard-check"></i> Physical Asset Verification</h1>
+            <p>Industrial-grade asset tracking and verification system</p>
+        </header>
+        
+        <div class="asset-counter">
+            <div class="counter-item">
+                <div class="counter-value" id="totalAssets">5</div>
+                <div class="counter-label">Total Assets</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-value" id="verifiedAssets">3</div>
+                <div class="counter-label">Verified</div>
+            </div>
+            <div class="counter-item">
+                <div class="counter-value" id="pendingAssets">2</div>
+                <div class="counter-label">Pending</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="verification">Asset Verification</div>
+            <div class="tab" data-tab="spreadsheet">Data Sheet</div>
+            <div class="tab" data-tab="fields">Field Management</div>
+            <div class="tab" data-tab="backup">Backup/Restore</div>
+        </div>
+        
+        <div class="app-layout">
+            <!-- Asset Verification Section -->
+            <div class="section tab-content active" id="verification">
+                <div class="panel-screw top-left"></div>
+                <div class="panel-screw top-right"></div>
+                <div class="section-title">
+                    <h2><i class="fas fa-tasks"></i> Asset Verification Form</h2>
+                </div>
+                
+                <div class="asset-selector">
+                    <label for="assetSelector"><i class="fas fa-search"></i> <span class="editable-label">Select Asset to Verify</span></label>
+                    <select id="assetSelector">
+                        <option value="">-- Select an asset --</option>
+                        <option value="ASSET-001">ASSET-001 - Server Rack</option>
+                        <option value="ASSET-002">ASSET-002 - Office Printer</option>
+                        <option value="ASSET-003">ASSET-003 - Conference System</option>
+                        <option value="ASSET-004">ASSET-004 - Workstation PC</option>
+                        <option value="ASSET-005">ASSET-005 - Security Camera</option>
+                    </select>
+                </div>
+                
+                <form id="verificationForm">
+                    <input type="hidden" id="assetId">
+                    
+                    <div class="form-group">
+                        <label for="assetNumber"><i class="fas fa-barcode"></i> <span class="editable-label">Asset Number</span></label>
+                        <input type="text" id="assetNumber" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fieldTag"><i class="fas fa-tag"></i> <span class="editable-label">Field Tag No</span></label>
+                        <input type="text" id="fieldTag">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="description"><i class="fas fa-file-alt"></i> <span class="editable-label">Asset Description</span></label>
+                        <textarea id="description"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="quantity"><i class="fas fa-cubes"></i> <span class="editable-label">Qty</span></label>
+                        <input type="number" id="quantity" min="1" value="1">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="costCenter"><i class="fas fa-building"></i> <span class="editable-label">Cost Center</span></label>
+                        <input type="text" id="costCenter">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ccOwner"><i class="fas fa-user"></i> <span class="editable-label">CC Owner</span></label>
+                        <input type="text" id="ccOwner">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="capDate"><i class="fas fa-calendar-alt"></i> <span class="editable-label">Cap.date</span></label>
+                        <input type="date" id="capDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="area"><i class="fas fa-map-marker-alt"></i> <span class="editable-label">Area</span></label>
+                        <input type="text" id="area">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="level"><i class="fas fa-layer-group"></i> <span class="editable-label">Level</span></label>
+                        <select id="level">
+                            <option value="">Select level</option>
+                            <option value="UG">Underground (UG)</option>
+                            <option value="Ground">Ground Level</option>
+                            <option value="Above">Above Ground</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="condition"><i class="fas fa-heartbeat"></i> <span class="editable-label">Condition</span></label>
+                        <select id="condition">
+                            <option value="">Select condition</option>
+                            <option value="Good">Good</option>
+                            <option value="Poor">Poor</option>
+                        </select>
+                        <div id="conditionDetails" style="display: none; margin-top: 10px;">
+                            <label for="conditionNotes"><i class="fas fa-comment"></i> <span class="editable-label">Details (if poor)</span></label>
+                            <textarea id="conditionNotes" placeholder="Provide details about the asset's poor condition..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dateInspected"><i class="fas fa-calendar-check"></i> <span class="editable-label">Date Inspected</span></label>
+                        <input type="date" id="dateInspected" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes"><i class="fas fa-sticky-note"></i> <span class="editable-label">Notes</span></label>
+                        <textarea id="notes" placeholder="Additional notes about the asset..."></textarea>
+                    </div>
+                    
+                    <!-- Camera Section - Replaces Photo Upload -->
+                    <div class="form-group">
+                        <label><i class="fas fa-camera"></i> <span class="editable-label">Take Asset Photo</span></label>
+                        
+                        <!-- Camera Container -->
+                        <div class="camera-container">
+                            <video class="camera-view" id="cameraView" autoplay playsinline></video>
+                            <button class="snap-btn" id="snapBtn"><i class="fas fa-camera"></i></button>
+                            <div id="cameraPlaceholder" class="camera-placeholder" style="display:none">
+                                <i class="fas fa-video-slash"></i>
+                                <h3>Camera Access Required</h3>
+                                <p>To capture asset photos, please allow camera access.</p>
+                                <div class="camera-permission-help">
+                                    <h4>How to enable camera access:</h4>
+                                    <ul>
+                                        <li>Look for the camera permission prompt</li>
+                                        <li>Check your browser's address bar for a camera icon</li>
+                                        <li>Go to browser settings → Privacy → Camera permissions</li>
+                                        <li>Refresh after granting permissions</li>
+                                    </ul>
+                                </div>
+                                <button id="retryCamera" class="camera-btn camera-btn-primary"><i class="fas fa-redo"></i> Retry Camera</button>
+                            </div>
+                        </div>
+                        
+                        <div class="camera-controls">
+                            <button id="switchCamera" class="camera-btn camera-btn-primary"><i class="fas fa-sync-alt"></i> Switch Camera</button>
+                            <button id="toggleFlash" class="camera-btn camera-btn-primary"><i class="fas fa-bolt"></i> Flash: Off</button>
+                            <button id="clearPhoto" class="camera-btn camera-btn-primary" style="display:none"><i class="fas fa-times"></i> Clear Photo</button>
+                        </div>
+                        
+                        <img id="photoPreview" class="camera-preview" alt="Preview">
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success" onclick="saveAsset()">
+                            <i class="fas fa-save"></i> Save Asset
+                        </button>
+                        <button type="button" class="btn btn-warning" onclick="resetForm()">
+                            <i class="fas fa-undo"></i> Reset Form
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="addNewAsset()">
+                            <i class="fas fa-plus"></i> Add New Asset
+                        </button>
+                    </div>
+                </form>
+                
+                <div class="saved-assets">
+                    <h3><i class="fas fa-history"></i> <span class="editable-label">Recently Saved Assets</span></h3>
+                    <ul id="recentAssetsList">
+                        <li>ASSET-001 - Server Rack <span>Verified</span></li>
+                        <li>ASSET-004 - Workstation PC <span>Verified</span></li>
+                        <li>ASSET-003 - Conference System <span>Verified</span></li>
+                    </ul>
+                </div>
             </div>
             
-            <!-- ... (keep all existing form fields) ... -->
-            
-            <div class="form-group">
-                <label><i class="fas fa-camera"></i> <span class="editable-label">Take Asset Photo</span></label>
-                
-                <!-- Camera Container (replaces photo upload) -->
-                <div class="camera-container">
-                    <video class="camera-view" id="cameraView" autoplay playsinline></video>
-                    <button class="snap-btn" id="snapBtn"><i class="fas fa-camera"></i></button>
-                    <div id="cameraPlaceholder" class="camera-placeholder" style="display:none">
-                        <i class="fas fa-video-slash"></i>
-                        <h3>Camera Access Required</h3>
-                        <p>To capture asset photos, please allow camera access.</p>
-                        <div class="camera-permission-help">
-                            <h4>How to enable camera access:</h4>
-                            <ul>
-                                <li>Look for the camera permission prompt</li>
-                                <li>Check your browser's address bar for a camera icon</li>
-                                <li>Go to browser settings → Privacy → Camera permissions</li>
-                                <li>Refresh after granting permissions</li>
-                            </ul>
-                        </div>
-                        <button id="retryCamera" class="camera-btn camera-btn-primary"><i class="fas fa-redo"></i> Retry Camera</button>
+            <!-- Data Sheet Section -->
+            <div class="section tab-content" id="spreadsheet">
+                <div class="panel-screw top-left"></div>
+                <div class="panel-screw top-right"></div>
+                <div class="section-title">
+                    <h2><i class="fas fa-table"></i> <span class="editable-label">Asset Data Sheet</span></h2>
+                    <div class="spreadsheet-actions">
+                        <button class="btn btn-primary" onclick="downloadSpreadsheet()">
+                            <i class="fas fa-download"></i> <span class="editable-label">Download Data</span>
+                        </button>
+                        <button class="btn btn-success" onclick="document.getElementById('fileUpload').click()">
+                            <i class="fas fa-upload"></i> <span class="editable-label">Upload Data</span>
+                        </button>
+                        <button class="btn btn-danger" onclick="confirmClearData()">
+                            <i class="fas fa-trash"></i> <span class="editable-label">Clear Data</span>
+                        </button>
+                        <input type="file" id="fileUpload" accept=".xlsx, .xls, .csv" style="display: none;">
                     </div>
                 </div>
                 
-                <div class="camera-controls">
-                    <button id="switchCamera" class="camera-btn camera-btn-primary"><i class="fas fa-sync-alt"></i> Switch Camera</button>
-                    <button id="toggleFlash" class="camera-btn camera-btn-primary"><i class="fas fa-bolt"></i> Flash: Off</button>
-                    <button id="clearPhoto" class="camera-btn camera-btn-primary" style="display:none"><i class="fas fa-times"></i> Clear Photo</button>
+                <div style="overflow-x: auto;">
+                    <table class="data-table" id="assetTable">
+                        <thead>
+                            <tr>
+                                <th><span class="editable-label">Asset No</span></th>
+                                <th><span class="editable-label">Tag No</span></th>
+                                <th><span class="editable-label">Description</span></th>
+                                <th><span class="editable-label">Qty</span></th>
+                                <th><span class="editable-label">Cost Center</span></th>
+                                <th><span class="editable-label">Status</span></th>
+                                <th><span class="editable-label">Actions</span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ASSET-001</td>
+                                <td>TAG-1001</td>
+                                <td>Server Rack</td>
+                                <td>1</td>
+                                <td>IT-01</td>
+                                <td><span class="status-badge verified">Verified</span></td>
+                                <td>
+                                    <button class="btn-action view" onclick="viewAsset('ASSET-001')"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-action edit" onclick="editAsset('ASSET-001')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="confirmDeleteAsset('ASSET-001')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ASSET-002</td>
+                                <td>TAG-1002</td>
+                                <td>Office Printer</td>
+                                <td>2</td>
+                                <td>ADMIN-01</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>
+                                    <button class="btn-action view" onclick="viewAsset('ASSET-002')"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-action edit" onclick="editAsset('ASSET-002')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="confirmDeleteAsset('ASSET-002')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ASSET-003</td>
+                                <td>TAG-1003</td>
+                                <td>Conference System</td>
+                                <td>1</td>
+                                <td>MEET-01</td>
+                                <td><span class="status-badge verified">Verified</span></td>
+                                <td>
+                                    <button class="btn-action view" onclick="viewAsset('ASSET-003')"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-action edit" onclick="editAsset('ASSET-003')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="confirmDeleteAsset('ASSET-003')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ASSET-004</td>
+                                <td>TAG-1004</td>
+                                <td>Workstation PC</td>
+                                <td>15</td>
+                                <td>IT-02</td>
+                                <td><span class="status-badge verified">Verified</span></td>
+                                <td>
+                                    <button class="btn-action view" onclick="viewAsset('ASSET-004')"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-action edit" onclick="editAsset('ASSET-004')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="confirmDeleteAsset('ASSET-004')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ASSET-005</td>
+                                <td>TAG-1005</td>
+                                <td>Security Camera</td>
+                                <td>8</td>
+                                <td>SEC-01</td>
+                                <td><span class="status-badge pending">Pending</span></td>
+                                <td>
+                                    <button class="btn-action view" onclick="viewAsset('ASSET-005')"><i class="fas fa-eye"></i></button>
+                                    <button class="btn-action edit" onclick="editAsset('ASSET-005')"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="confirmDeleteAsset('ASSET-005')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                
-                <img id="photoPreview" class="camera-preview" alt="Preview">
             </div>
             
-            <!-- ... (rest of the form) ... -->
+            <!-- Field Management Section -->
+            <div class="section tab-content" id="fields">
+                <div class="panel-screw top-left"></div>
+                <div class="panel-screw top-right"></div>
+                <div class="section-title">
+                    <h2><i class="fas fa-cog"></i> <span class="editable-label">Field Management</span></h2>
+                </div>
+                
+                <p><span class="editable-label">Customize your asset verification form by adding, removing, or editing fields.</span></p>
+                
+                <div class="field-management">
+                    <h3><i class="fas fa-plus-circle"></i> <span class="editable-label">Add New Field</span></h3>
+                    <div class="new-field-form">
+                        <div class="new-field-input">
+                            <label for="newFieldName"><i class="fas fa-tag"></i> <span class="editable-label">Field Name</span></label>
+                            <input type="text" id="newFieldName" placeholder="Enter new field name">
+                        </div>
+                        <div class="new-field-input">
+                            <label for="newFieldType"><i class="fas fa-list"></i> <span class="editable-label">Field Type</span></label>
+                            <select id="newFieldType">
+                                <option value="text">Text</option>
+                                <option value="number">Number</option>
+                                <option value="date">Date</option>
+                                <option value="select">Dropdown</option>
+                                <option value="textarea">Text Area</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-success" onclick="addNewField()">
+                            <i class="fas fa-plus"></i> <span class="editable-label">Add Field</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="field-management">
+                    <h3><i class="fas fa-list"></i> <span class="editable-label">Current Fields</span></h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th><span class="editable-label">Field Name</span></th>
+                                <th><span class="editable-label">Field Type</span></th>
+                                <th><span class="editable-label">Actions</span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="currentFieldsTable">
+                            <tr>
+                                <td><span class="editable-label">Asset Number</span></td>
+                                <td><span class="editable-label">text</span></td>
+                                <td>
+                                    <button class="btn-action edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="removeField('Asset Number')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="editable-label">Field Tag No</span></td>
+                                <td><span class="editable-label">text</span></td>
+                                <td>
+                                    <button class="btn-action edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="removeField('Field Tag No')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span class="editable-label">Asset Description</span></td>
+                                <td><span class="editable-label">textarea</span></td>
+                                <td>
+                                    <button class="btn-action edit"><i class="fas fa-edit"></i></button>
+                                    <button class="btn-action delete" onclick="removeField('Asset Description')"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Backup/Restore Section -->
+            <div class="section tab-content" id="backup">
+                <div class="panel-screw top-left"></div>
+                <div class="panel-screw top-right"></div>
+                <div class="section-title">
+                    <h2><i class="fas fa-database"></i> <span class="editable-label">Backup & Restore</span></h2>
+                </div>
+                
+                <div class="form-group">
+                    <h3><i class="fas fa-file-export"></i> <span class="editable-label">Create Backup</span></h3>
+                    <p><span class="editable-label">Create a complete backup of all asset data including custom fields.</span></p>
+                    <div class="btn-group">
+                        <button class="btn btn-primary" onclick="createBackup()">
+                            <i class="fas fa-download"></i> <span class="editable-label">Download Backup</span>
+                        </button>
+                        <button class="btn btn-success" onclick="autoBackup()">
+                            <i class="fas fa-save"></i> <span class="editable-label">Auto Backup</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3><i class="fas fa-file-import"></i> <span class="editable-label">Restore Backup</span></h3>
+                    <p><span class="editable-label">Restore from a previously created backup file.</span></p>
+                    <div class="btn-group">
+                        <button class="btn btn-warning" onclick="document.getElementById('backupUpload').click()">
+                            <i class="fas fa-upload"></i> <span class="editable-label">Restore Backup</span>
+                        </button>
+                        <input type="file" id="backupUpload" accept=".json" style="display: none;">
+                    </div>
+                    <div id="backupFileInfo" style="margin-top: 10px; display: none;">
+                        <p><span class="editable-label">Selected file: </span><span id="backupFileName"></span></p>
+                        <button class="btn btn-danger" onclick="restoreBackup()" style="margin-top: 10px;">
+                            <i class="fas fa-history"></i> <span class="editable-label">Confirm Restore</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <h3><i class="fas fa-info-circle"></i> <span class="editable-label">Backup Information</span></h3>
+                    <div class="detail-value">
+                        <p><span class="editable-label">Last Backup: </span><span id="lastBackupTime">Never</span></p>
+                        <p><span class="editable-label">Total Assets: </span><span id="backupAssetCount">0</span></p>
+                        <p><span class="editable-label">Custom Fields: </span><span id="backupFieldCount">0</span></p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <!-- ... (rest of Verification_App HTML) ... -->
     </div>
     
-    <!-- ... (rest of Verification_App HTML - modals, footer, etc.) ... -->
+    <!-- Asset Detail Modal -->
+    <div class="modal" id="assetModal">
+        <div class="modal-content">
+            <div class="panel-screw top-left"></div>
+            <div class="panel-screw top-right"></div>
+            <div class="modal-header">
+                <h3 id="modalTitle"><span class="editable-label">Asset Details</span></h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="assetDetails">
+                <!-- Asset details will be populated here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="panel-screw top-left"></div>
+            <div class="panel-screw top-right"></div>
+            <div class="modal-header">
+                <h3>Confirm Delete</h3>
+                <button class="close-modal" onclick="closeDeleteModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this asset? This action cannot be undone.</p>
+                <input type="hidden" id="assetToDelete">
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button class="btn btn-warning" onclick="closeDeleteModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-danger" onclick="deleteAsset()">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Clear Data Confirmation Modal -->
+    <div class="modal" id="clearDataModal">
+        <div class="modal-content">
+            <div class="panel-screw top-left"></div>
+            <div class="panel-screw top-right"></div>
+            <div class="modal-header">
+                <h3>Confirm Clear All Data</h3>
+                <button class="close-modal" onclick="closeClearDataModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to clear ALL asset data? This action cannot be undone and will remove all records.</p>
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button class="btn btn-warning" onclick="closeClearDataModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-danger" onclick="clearAllData()">
+                        <i class="fas fa-trash"></i> Clear All Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p><span class="editable-label">Industrial Asset Verification System &copy; 2023 | Designed for rugged environments</span></p>
+    </footer>
+    
+    <div class="notification" id="notification">
+        <span id="notificationMessage">Operation completed successfully!</span>
+    </div>
     
     <script>
-        // ... (keep all existing Verification_App JavaScript) ...
-        
+        // Asset data storage
+        let assets = [
+            {
+                id: 'ASSET-001',
+                assetNumber: 'ASSET-001',
+                fieldTag: 'TAG-1001',
+                description: 'Server Rack',
+                quantity: 1,
+                costCenter: 'IT-01',
+                ccOwner: 'John Smith',
+                capDate: '2023-01-15',
+                area: 'Data Center',
+                level: 'Above',
+                condition: 'Good',
+                conditionNotes: '',
+                dateInspected: '2023-08-01',
+                notes: 'Regular maintenance performed',
+                photo: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+                status: 'verified'
+            },
+            {
+                id: 'ASSET-002',
+                assetNumber: 'ASSET-002',
+                fieldTag: 'TAG-1002',
+                description: 'Office Printer',
+                quantity: 2,
+                costCenter: 'ADMIN-01',
+                ccOwner: 'Sarah Johnson',
+                capDate: '2023-02-20',
+                area: 'Administration',
+                level: 'Ground',
+                condition: 'Good',
+                conditionNotes: '',
+                dateInspected: '2023-08-05',
+                notes: 'Ink replaced recently',
+                photo: 'https://images.unsplash.com/photo-1584438784894-089d6a62b8fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+                status: 'pending'
+            },
+            {
+                id: 'ASSET-003',
+                assetNumber: 'ASSET-003',
+                fieldTag: 'TAG-1003',
+                description: 'Conference System',
+                quantity: 1,
+                costCenter: 'MEET-01',
+                ccOwner: 'Robert Lee',
+                capDate: '2023-03-10',
+                area: 'Conference Room',
+                level: 'Above',
+                condition: 'Good',
+                conditionNotes: '',
+                dateInspected: '2023-08-03',
+                notes: 'Microphones calibrated',
+                photo: 'https://images.unsplash.com/photo-1589652717521-10c0d092dea9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+                status: 'verified'
+            },
+            {
+                id: 'ASSET-004',
+                assetNumber: 'ASSET-004',
+                fieldTag: 'TAG-1004',
+                description: 'Workstation PC',
+                quantity: 15,
+                costCenter: 'IT-02',
+                ccOwner: 'Michael Chen',
+                capDate: '2023-04-05',
+                area: 'Office Area',
+                level: 'Ground',
+                condition: 'Good',
+                conditionNotes: '',
+                dateInspected: '2023-08-02',
+                notes: 'All systems operational',
+                photo: 'https://images.unsplash.com/photo-1547082299-de196ea013d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+                status: 'verified'
+            },
+            {
+                id: 'ASSET-005',
+                assetNumber: 'ASSET-005',
+                fieldTag: 'TAG-1005',
+                description: 'Security Camera',
+                quantity: 8,
+                costCenter: 'SEC-01',
+                ccOwner: 'Emma Davis',
+                capDate: '2023-05-18',
+                area: 'Perimeter',
+                level: 'Above',
+                condition: 'Good',
+                conditionNotes: '',
+                dateInspected: '2023-08-06',
+                notes: 'Night vision checked',
+                photo: 'https://images.unsplash.com/photo-1585366119957-e9730b6d0f60?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80',
+                status: 'pending'
+            }
+        ];
+        let assetCounter = 5;
+
+        // Custom fields storage
+        let customFields = [
+            { name: 'Asset Number', type: 'text' },
+            { name: 'Field Tag No', type: 'text' },
+            { name: 'Asset Description', type: 'textarea' },
+            { name: 'Qty', type: 'number' },
+            { name: 'Cost Center', type: 'text' },
+            { name: 'CC Owner', type: 'text' },
+            { name: 'Cap.date', type: 'date' },
+            { name: 'Area', type: 'text' },
+            { name: 'Level', type: 'select' },
+            { name: 'Condition', type: 'select' },
+            { name: 'Date Inspected', type: 'date' },
+            { name: 'Notes', type: 'textarea' }
+        ];
+
+        // Backup data
+        let backupData = null;
+        let lastBackupTime = null;
+
         // Camera functionality
         let stream = null;
         let facing = 'environment';
@@ -218,6 +1610,27 @@
         const retryBtn = document.getElementById('retryCamera');
         const cameraPlaceholder = document.getElementById('cameraPlaceholder');
         const photoPreview = document.getElementById('photoPreview');
+
+        // Function to update all counters
+        function updateAllCounters() {
+            const verifiedCount = assets.filter(a => a.status === 'verified').length;
+            const pendingCount = assets.filter(a => a.status === 'pending').length;
+            
+            document.getElementById('totalAssets').textContent = assets.length;
+            document.getElementById('verifiedAssets').textContent = verifiedCount;
+            document.getElementById('pendingAssets').textContent = pendingCount;
+            
+            // Update backup info
+            document.getElementById('backupAssetCount').textContent = assets.length;
+            document.getElementById('backupFieldCount').textContent = customFields.length;
+        }
+
+        // Toggle condition details based on selection
+        function toggleConditionDetails() {
+            const condition = document.getElementById('condition').value;
+            const detailsDiv = document.getElementById('conditionDetails');
+            detailsDiv.style.display = condition === 'Poor' ? 'block' : 'none';
+        }
         
         // Initialize camera
         async function initCamera(facingMode = 'environment') {
@@ -294,8 +1707,24 @@
             initCamera(facing);
         });
         
-        // Modify the saveAsset function to use the captured photo
-        async function saveAsset() {
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        // Save asset function
+        function saveAsset() {
             // Validate required fields
             const assetNumber = document.getElementById('assetNumber').value;
             const dateInspected = document.getElementById('dateInspected').value;
@@ -386,7 +1815,7 @@
             autoBackup();
         }
         
-        // Modify resetForm to also reset camera
+        // Reset form function
         function resetForm() {
             document.getElementById('verificationForm').reset();
             // Reset camera
@@ -406,21 +1835,821 @@
             showNotification('Form has been reset');
         }
         
-        // Initialize camera when the app loads
-        document.addEventListener('DOMContentLoaded', function() {
-            // ... (existing initialization code) ...
-            
-            // Initialize camera
-            initCamera();
-            
-            // Set today's date as default for inspection date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('dateInspected').value = today;
-            
-            // ... (rest of existing initialization code) ...
-        });
+        // Add new asset function
+        function addNewAsset() {
+            resetForm();
+            document.getElementById('assetNumber').focus();
+            showNotification('Ready to add a new asset');
+        }
         
-        // ... (rest of existing Verification_App JavaScript) ...
+        // Download spreadsheet function
+        function downloadSpreadsheet() {
+            try {
+                // Create worksheet data with all fields
+                const wsData = [
+                    [
+                        "Asset Number", "Field Tag No", "Asset Description", "Qty", 
+                        "Cost Center", "CC Owner", "Cap.date", "Area", "Level", 
+                        "Condition", "Condition Details", "Date Inspected", 
+                        "Notes", "Photo", "Status"
+                    ]
+                ];
+                
+                // Add assets to worksheet data
+                assets.forEach(asset => {
+                    wsData.push([
+                        asset.assetNumber,
+                        asset.fieldTag,
+                        asset.description,
+                        asset.quantity,
+                        asset.costCenter,
+                        asset.ccOwner,
+                        asset.capDate,
+                        asset.area,
+                        asset.level,
+                        asset.condition,
+                        asset.conditionNotes,
+                        asset.dateInspected,
+                        asset.notes,
+                        asset.photo ? "Photo Attached" : "",
+                        asset.status
+                    ]);
+                });
+                
+                // Create worksheet
+                const ws = XLSX.utils.aoa_to_sheet(wsData);
+                
+                // Create workbook
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Asset Data");
+                
+                // Generate filename
+                const today = new Date();
+                const dateStr = `${today.getFullYear()}${(today.getMonth()+1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`;
+                const timeStr = `${today.getHours().toString().padStart(2, '0')}${today.getMinutes().toString().padStart(2, '0')}`;
+                const filename = `Asset_Verification_${dateStr}_${timeStr}.xlsx`;
+                
+                // Download file
+                XLSX.writeFile(wb, filename);
+                
+                showNotification('Asset data downloaded successfully!');
+            } catch (error) {
+                console.error('Error downloading spreadsheet:', error);
+                showNotification('Error downloading data: ' + error.message, true);
+            }
+        }
+        
+        // File upload handling
+        document.getElementById('fileUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    
+                    // Get the first worksheet
+                    const worksheet = workbook.Sheets[workbook.SheetNames[0]];
+                    
+                    // Convert to JSON
+                    const jsonData = XLSX.utils.sheet_to_json(worksheet);
+                    
+                    if (jsonData.length > 0) {
+                        // Process the imported data
+                        processImportedData(jsonData);
+                    } else {
+                        showNotification('No data found in the uploaded file', true);
+                    }
+                } catch (error) {
+                    console.error('Error processing file:', error);
+                    showNotification('Error processing file: ' + error.message, true);
+                }
+            };
+            reader.onerror = function() {
+                showNotification('Error reading file', true);
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        function processImportedData(data) {
+            // Find the highest existing asset number
+            let maxAssetNum = 0;
+            assets.forEach(asset => {
+                const num = parseInt(asset.id.replace('ASSET-', ''));
+                if (num > maxAssetNum) maxAssetNum = num;
+            });
+            
+            // Process each row
+            data.forEach((row, index) => {
+                const assetNum = row['Asset Number'] || '';
+                const newId = assetNum ? `ASSET-${assetNum.replace('ASSET-', '')}` : `ASSET-${maxAssetNum + index + 1}`;
+                
+                const newAsset = {
+                    id: newId,
+                    assetNumber: assetNum || newId,
+                    fieldTag: row['Field Tag No'] || '',
+                    description: row['Asset Description'] || '',
+                    quantity: parseInt(row['Qty']) || 1,
+                    costCenter: row['Cost Center'] || '',
+                    ccOwner: row['CC Owner'] || '',
+                    capDate: row['Cap.date'] || '',
+                    area: row['Area'] || '',
+                    level: row['Level'] || '',
+                    condition: row['Condition'] || 'Good',
+                    conditionNotes: row['Condition Details'] || '',
+                    dateInspected: row['Date Inspected'] || new Date().toISOString().split('T')[0],
+                    notes: row['Notes'] || '',
+                    photo: row['Photo'] || '',
+                    status: row['Status'] || 'pending',
+                    timestamp: new Date().toISOString()
+                };
+                
+                // Check if asset already exists
+                const existingIndex = assets.findIndex(a => a.id === newId);
+                if (existingIndex >= 0) {
+                    assets[existingIndex] = newAsset; // Update existing
+                } else {
+                    assets.push(newAsset); // Add new
+                    if (parseInt(newId.replace('ASSET-', '')) > maxAssetNum) {
+                        maxAssetNum = parseInt(newId.replace('ASSET-', ''));
+                    }
+                }
+            });
+            
+            // Update counter to be higher than any existing asset
+            assetCounter = maxAssetNum;
+            
+            // Update all counters
+            updateAllCounters();
+            
+            // Update the data table and selector
+            updateDataTable();
+            updateAssetSelector();
+            
+            showNotification(`${data.length} assets imported successfully!`);
+            
+            // Auto backup after significant changes
+            autoBackup();
+        }
+
+        function updateDataTable() {
+            const tbody = document.querySelector('#assetTable tbody');
+            tbody.innerHTML = '';
+            
+            assets.forEach(asset => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${asset.assetNumber}</td>
+                    <td>${asset.fieldTag}</td>
+                    <td>${asset.description}</td>
+                    <td>${asset.quantity}</td>
+                    <td>${asset.costCenter}</td>
+                    <td><span class="status-badge ${asset.status === 'verified' ? 'verified' : 'pending'}">
+                        ${asset.status === 'verified' ? 'Verified' : 'Pending'}
+                    </span></td>
+                    <td>
+                        <button class="btn-action view" onclick="viewAsset('${asset.id}')"><i class="fas fa-eye"></i></button>
+                        <button class="btn-action edit" onclick="editAsset('${asset.id}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn-action delete" onclick="confirmDeleteAsset('${asset.id}')"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function updateAssetSelector() {
+            const selector = document.getElementById('assetSelector');
+            
+            // Clear existing options except the first one
+            selector.innerHTML = '<option value="">-- Select an asset --</option>';
+            
+            // Add current assets sorted by asset number
+            assets.sort((a, b) => a.assetNumber.localeCompare(b.assetNumber))
+                 .forEach(asset => {
+                const option = document.createElement('option');
+                option.value = asset.id;
+                option.textContent = `${asset.assetNumber} - ${asset.description}`;
+                selector.appendChild(option);
+            });
+        }
+        
+        // Load asset for editing from selector
+        function loadAssetForEdit() {
+            const assetId = document.getElementById('assetSelector').value;
+            if (assetId) {
+                editAsset(assetId);
+            } else {
+                resetForm();
+            }
+        }
+
+        // Edit asset
+        function editAsset(assetId) {
+            const asset = assets.find(a => a.id === assetId);
+            if (!asset) {
+                showNotification('Asset not found! Please try refreshing the page.', true);
+                console.error('Asset not found:', assetId);
+                console.log('Available assets:', assets);
+                resetForm();
+                return;
+            }
+
+            try {
+                // Clear photo preview first
+                document.getElementById('photoPreview').style.display = 'none';
+                document.getElementById('photoPreview').src = '';
+                
+                // Populate form fields
+                document.getElementById('assetId').value = asset.id;
+                document.getElementById('assetNumber').value = asset.assetNumber;
+                document.getElementById('fieldTag').value = asset.fieldTag;
+                document.getElementById('description').value = asset.description;
+                document.getElementById('quantity').value = asset.quantity;
+                document.getElementById('costCenter').value = asset.costCenter;
+                document.getElementById('ccOwner').value = asset.ccOwner;
+                document.getElementById('capDate').value = asset.capDate;
+                document.getElementById('area').value = asset.area;
+                document.getElementById('level').value = asset.level;
+                document.getElementById('condition').value = asset.condition;
+                
+                if (asset.condition === 'Poor') {
+                    document.getElementById('conditionDetails').style.display = 'block';
+                    document.getElementById('conditionNotes').value = asset.conditionNotes;
+                } else {
+                    document.getElementById('conditionDetails').style.display = 'none';
+                }
+                
+                document.getElementById('dateInspected').value = asset.dateInspected;
+                document.getElementById('notes').value = asset.notes;
+                
+                if (asset.photo) {
+                    document.getElementById('photoPreview').src = asset.photo;
+                    document.getElementById('photoPreview').style.display = 'block';
+                }
+                
+                // Update selector to show current selection
+                document.getElementById('assetSelector').value = asset.id;
+                
+                showNotification(`Loaded asset ${asset.assetNumber}`);
+            } catch (error) {
+                console.error('Error editing asset:', error);
+                showNotification('Error loading asset data!', true);
+                resetForm();
+            }
+        }
+        
+        // View asset details
+        function viewAsset(assetId) {
+            const asset = assets.find(a => a.id === assetId);
+            if (asset) {
+                document.getElementById('modalTitle').textContent = `Asset: ${asset.assetNumber}`;
+                
+                let detailsHTML = `
+                    <div class="asset-details">
+                        <div class="detail-item">
+                            <div class="detail-label">Asset Number</div>
+                            <div class="detail-value">${asset.assetNumber}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Field Tag No</div>
+                            <div class="detail-value">${asset.fieldTag}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Description</div>
+                            <div class="detail-value">${asset.description}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Quantity</div>
+                            <div class="detail-value">${asset.quantity}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Cost Center</div>
+                            <div class="detail-value">${asset.costCenter}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">CC Owner</div>
+                            <div class="detail-value">${asset.ccOwner}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Cap.date</div>
+                            <div class="detail-value">${asset.capDate}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Area</div>
+                            <div class="detail-value">${asset.area}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Level</div>
+                            <div class="detail-value">${asset.level}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Condition</div>
+                            <div class="detail-value">${asset.condition}</div>
+                        </div>
+                `;
+                
+                if (asset.condition === 'Poor') {
+                    detailsHTML += `
+                        <div class="detail-item">
+                            <div class="detail-label">Condition Details</div>
+                            <div class="detail-value">${asset.conditionNotes}</div>
+                        </div>
+                    `;
+                }
+                
+                detailsHTML += `
+                        <div class="detail-item">
+                            <div class="detail-label">Date Inspected</div>
+                            <div class="detail-value">${asset.dateInspected}</div>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">Notes</div>
+                            <div class="detail-value">${asset.notes}</div>
+                        </div>
+                    </div>
+                `;
+                
+                if (asset.photo) {
+                    detailsHTML += `
+                        <div class="detail-item" style="grid-column: span 2;">
+                            <div class="detail-label">Photo</div>
+                            <img src="${asset.photo}" class="photo-preview-large" alt="Asset Photo">
+                        </div>
+                    `;
+                }
+                
+                document.getElementById('assetDetails').innerHTML = detailsHTML;
+                document.getElementById('assetModal').style.display = 'flex';
+            } else {
+                showNotification('Asset not found!', true);
+            }
+        }
+        
+        // Close modal
+        function closeModal() {
+            document.getElementById('assetModal').style.display = 'none';
+        }
+        
+        // Confirm asset deletion
+        function confirmDeleteAsset(assetId) {
+            document.getElementById('assetToDelete').value = assetId;
+            document.getElementById('deleteModal').style.display = 'flex';
+        }
+
+        // Close delete confirmation modal
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        // Delete asset
+        function deleteAsset() {
+            const assetId = document.getElementById('assetToDelete').value;
+            const assetIndex = assets.findIndex(a => a.id === assetId);
+            
+            if (assetIndex === -1) {
+                showNotification('Asset not found!', true);
+                closeDeleteModal();
+                return;
+            }
+            
+            const assetNumber = assets[assetIndex].assetNumber;
+            assets.splice(assetIndex, 1);
+            
+            // Update all counters
+            updateAllCounters();
+            
+            // Update the data table and selector
+            updateDataTable();
+            updateAssetSelector();
+            
+            // Reset form if the deleted asset was being edited
+            if (document.getElementById('assetId').value === assetId) {
+                resetForm();
+            }
+            
+            closeDeleteModal();
+            showNotification(`Asset ${assetNumber} deleted successfully!`);
+            
+            // Auto backup after significant changes
+            autoBackup();
+        }
+        
+        // Confirm clear all data
+        function confirmClearData() {
+            document.getElementById('clearDataModal').style.display = 'flex';
+        }
+
+        // Close clear data confirmation modal
+        function closeClearDataModal() {
+            document.getElementById('clearDataModal').style.display = 'none';
+        }
+
+        // Clear all asset data
+        function clearAllData() {
+            // Clear the assets array
+            assets = [];
+            assetCounter = 0;
+            
+            // Update all counters
+            updateAllCounters();
+            
+            // Update the data table and selector
+            updateDataTable();
+            updateAssetSelector();
+            
+            // Reset form
+            resetForm();
+            
+            // Clear recent assets list
+            document.getElementById('recentAssetsList').innerHTML = '';
+            
+            closeClearDataModal();
+            showNotification('All asset data has been cleared!');
+            
+            // Auto backup after significant changes
+            autoBackup();
+        }
+        
+        // Add new field function
+        function addNewField() {
+            const fieldName = document.getElementById('newFieldName').value.trim();
+            const fieldType = document.getElementById('newFieldType').value;
+            
+            if (!fieldName) {
+                showNotification('Please enter a field name', true);
+                return;
+            }
+            
+            // Check if field already exists
+            if (customFields.some(field => field.name.toLowerCase() === fieldName.toLowerCase())) {
+                showNotification('Field with this name already exists!', true);
+                return;
+            }
+            
+            // Add to custom fields array
+            customFields.push({ name: fieldName, type: fieldType });
+            
+            // Add to form
+            addFieldToForm(fieldName, fieldType);
+            
+            // Add to current fields table
+            updateCurrentFieldsTable();
+            
+            showNotification(`Field "${fieldName}" added successfully!`);
+            document.getElementById('newFieldName').value = '';
+            
+            // Auto backup after significant changes
+            autoBackup();
+        }
+        
+        // Add field to form
+        function addFieldToForm(name, type) {
+            const form = document.getElementById('verificationForm');
+            const formGroups = form.querySelectorAll('.form-group');
+            const lastFormGroup = formGroups[formGroups.length - 1];
+            
+            const newFieldGroup = document.createElement('div');
+            newFieldGroup.className = 'form-group';
+            
+            let fieldHtml = `
+                <label for="${name.replace(/\s+/g, '-').toLowerCase()}">
+                    <i class="fas fa-tag"></i> <span class="editable-label">${name}</span>
+                </label>
+            `;
+            
+            switch(type) {
+                case 'text':
+                    fieldHtml += `<input type="text" id="${name.replace(/\s+/g, '-').toLowerCase()}">`;
+                    break;
+                case 'number':
+                    fieldHtml += `<input type="number" id="${name.replace(/\s+/g, '-').toLowerCase()}">`;
+                    break;
+                case 'date':
+                    fieldHtml += `<input type="date" id="${name.replace(/\s+/g, '-').toLowerCase()}">`;
+                    break;
+                case 'select':
+                    fieldHtml += `<select id="${name.replace(/\s+/g, '-').toLowerCase()}">
+                        <option value="">Select ${name}</option>
+                    </select>`;
+                    break;
+                case 'textarea':
+                    fieldHtml += `<textarea id="${name.replace(/\s+/g, '-').toLowerCase()}"></textarea>`;
+                    break;
+            }
+            
+            newFieldGroup.innerHTML = fieldHtml;
+            
+            // Insert before the photo upload section
+            const cameraSection = form.querySelector('.camera-container').parentElement;
+            form.insertBefore(newFieldGroup, cameraSection);
+            
+            // Make the new label editable
+            makeLabelEditable(newFieldGroup.querySelector('.editable-label'));
+        }
+        
+        // Update current fields table
+        function updateCurrentFieldsTable() {
+            const tbody = document.querySelector('#fields .data-table tbody');
+            tbody.innerHTML = '';
+            
+            customFields.forEach(field => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><span class="editable-label">${field.name}</span></td>
+                    <td><span class="editable-label">${field.type}</span></td>
+                    <td>
+                        <button class="btn-action edit"><i class="fas fa-edit"></i></button>
+                        <button class="btn-action delete" onclick="removeField('${field.name}')"><i class="fas fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+                
+                // Make the field names editable
+                makeLabelEditable(row.querySelector('td:first-child .editable-label'));
+            });
+        }
+        
+        // Remove field from form and list
+        function removeField(fieldName) {
+            customFields = customFields.filter(field => field.name !== fieldName);
+            updateCurrentFieldsTable();
+            
+            // Remove from form
+            const fieldId = fieldName.replace(/\s+/g, '-').toLowerCase();
+            const fieldElement = document.getElementById(fieldId);
+            if (fieldElement) {
+                fieldElement.closest('.form-group').remove();
+            }
+            
+            showNotification(`Field "${fieldName}" removed successfully!`);
+            
+            // Auto backup after significant changes
+            autoBackup();
+        }
+        
+        // Make labels editable
+        function makeLabelEditable(labelElement) {
+            if (!labelElement) return;
+            
+            labelElement.addEventListener('click', function(e) {
+                if (e.target.tagName === 'INPUT') return;
+                
+                const currentText = this.textContent;
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'editable-label-input';
+                input.value = currentText;
+                
+                this.textContent = '';
+                this.appendChild(input);
+                input.focus();
+                
+                const saveEdit = () => {
+                    const newText = input.value.trim() || currentText;
+                    this.textContent = newText;
+                    
+                    // If this is a form field label, update the customFields array
+                    const formGroup = this.closest('.form-group');
+                    if (formGroup) {
+                        const inputElement = formGroup.querySelector('input, select, textarea');
+                        if (inputElement) {
+                            const fieldId = inputElement.id;
+                            const fieldName = fieldId.replace(/-/g, ' ');
+                            const fieldIndex = customFields.findIndex(f => 
+                                f.name.toLowerCase() === fieldName.toLowerCase()
+                            );
+                            
+                            if (fieldIndex !== -1) {
+                                customFields[fieldIndex].name = newText;
+                                updateCurrentFieldsTable();
+                                
+                                // Auto backup after significant changes
+                                autoBackup();
+                            }
+                        }
+                    }
+                };
+                
+                input.addEventListener('blur', saveEdit);
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        saveEdit();
+                    }
+                });
+            });
+        }
+        
+        // Show notification
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            const messageElement = document.getElementById('notificationMessage');
+            
+            messageElement.textContent = message;
+            notification.className = isError ? 'notification error show' : 'notification show';
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Backup functions
+        function createBackup() {
+            try {
+                const backup = {
+                    assets: assets,
+                    customFields: customFields,
+                    assetCounter: assetCounter,
+                    timestamp: new Date().toISOString()
+                };
+                
+                const dataStr = JSON.stringify(backup, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                
+                const today = new Date();
+                const dateStr = `${today.getFullYear()}${(today.getMonth()+1).toString().padStart(2, '0')}${today.getDate().toString().padStart(2, '0')}`;
+                const timeStr = `${today.getHours().toString().padStart(2, '0')}${today.getMinutes().toString().padStart(2, '0')}`;
+                const filename = `Asset_Backup_${dateStr}_${timeStr}.json`;
+                
+                const downloadLink = document.createElement('a');
+                downloadLink.href = url;
+                downloadLink.download = filename;
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+                document.body.removeChild(downloadLink);
+                
+                // Update last backup time
+                lastBackupTime = new Date();
+                document.getElementById('lastBackupTime').textContent = lastBackupTime.toLocaleString();
+                
+                showNotification('Backup created successfully!');
+            } catch (error) {
+                console.error('Error creating backup:', error);
+                showNotification('Error creating backup: ' + error.message, true);
+            }
+        }
+
+        function autoBackup() {
+            // Only backup if there are assets to backup
+            if (assets.length > 0) {
+                try {
+                    const backup = {
+                        assets: assets,
+                        customFields: customFields,
+                        assetCounter: assetCounter,
+                        timestamp: new Date().toISOString()
+                    };
+                    
+                    // Store in localStorage
+                    localStorage.setItem('assetVerificationBackup', JSON.stringify(backup));
+                    
+                    // Update last backup time
+                    lastBackupTime = new Date();
+                    document.getElementById('lastBackupTime').textContent = lastBackupTime.toLocaleString();
+                    
+                    console.log('Auto backup completed');
+                } catch (error) {
+                    console.error('Error during auto backup:', error);
+                }
+            }
+        }
+
+        function restoreBackup() {
+            try {
+                if (!backupData) {
+                    showNotification('No backup data loaded!', true);
+                    return;
+                }
+                
+                // Restore data
+                assets = backupData.assets || [];
+                customFields = backupData.customFields || [];
+                assetCounter = backupData.assetCounter || 0;
+                
+                // Update UI
+                updateAllCounters();
+                updateDataTable();
+                updateAssetSelector();
+                updateCurrentFieldsTable();
+                
+                // Update last backup time
+                lastBackupTime = new Date(backupData.timestamp);
+                document.getElementById('lastBackupTime').textContent = lastBackupTime.toLocaleString();
+                
+                // Hide file info
+                document.getElementById('backupFileInfo').style.display = 'none';
+                
+                showNotification('Backup restored successfully!');
+                
+                // Create new auto backup
+                autoBackup();
+            } catch (error) {
+                console.error('Error restoring backup:', error);
+                showNotification('Error restoring backup: ' + error.message, true);
+            }
+        }
+
+        // Backup upload handling
+        document.getElementById('backupUpload').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    backupData = JSON.parse(e.target.result);
+                    
+                    // Validate backup structure
+                    if (!backupData.assets || !backupData.customFields) {
+                        throw new Error('Invalid backup file format');
+                    }
+                    
+                    // Show file info
+                    document.getElementById('backupFileName').textContent = file.name;
+                    document.getElementById('backupFileInfo').style.display = 'block';
+                    
+                    // Update preview info
+                    document.getElementById('backupAssetCount').textContent = backupData.assets.length;
+                    document.getElementById('backupFieldCount').textContent = backupData.customFields.length;
+                    
+                    showNotification('Backup file loaded successfully. Click "Confirm Restore" to proceed.');
+                } catch (error) {
+                    console.error('Error processing backup file:', error);
+                    showNotification('Error processing backup file: ' + error.message, true);
+                }
+            };
+            reader.onerror = function() {
+                showNotification('Error reading backup file', true);
+            };
+            reader.readAsText(file);
+        });
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                // Initialize camera
+                initCamera();
+                
+                // Set today's date as default for inspection date
+                const today = new Date().toISOString().split('T')[0];
+                document.getElementById('dateInspected').value = today;
+                
+                // Initialize current fields table
+                updateCurrentFieldsTable();
+                
+                // Initialize asset selector
+                updateAssetSelector();
+                
+                // Add event listener for asset selector
+                document.getElementById('assetSelector').addEventListener('change', loadAssetForEdit);
+                
+                // Add event listener for condition dropdown
+                document.getElementById('condition').addEventListener('change', toggleConditionDetails);
+                
+                // Make all labels editable
+                document.querySelectorAll('.editable-label').forEach(label => {
+                    makeLabelEditable(label);
+                });
+                
+                // Close modal when clicking outside
+                window.addEventListener('click', function(event) {
+                    const modal = document.getElementById('assetModal');
+                    const deleteModal = document.getElementById('deleteModal');
+                    const clearDataModal = document.getElementById('clearDataModal');
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                    if (event.target === deleteModal) {
+                        closeDeleteModal();
+                    }
+                    if (event.target === clearDataModal) {
+                        closeClearDataModal();
+                    }
+                });
+
+                // Initialize counters
+                updateAllCounters();
+
+                // Check for existing backup in localStorage
+                const storedBackup = localStorage.getItem('assetVerificationBackup');
+                if (storedBackup) {
+                    try {
+                        const backup = JSON.parse(storedBackup);
+                        if (backup.timestamp) {
+                            lastBackupTime = new Date(backup.timestamp);
+                            document.getElementById('lastBackupTime').textContent = lastBackupTime.toLocaleString();
+                        }
+                    } catch (e) {
+                        console.error('Error parsing stored backup:', e);
+                    }
+                }
+            } catch (error) {
+                console.error('Initialization error:', error);
+                showNotification('App initialization failed!', true);
+            }
+        });
     </script>
 </body>
 </html>
